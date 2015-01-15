@@ -13,6 +13,15 @@ a {
 .title{
   text-align: center;
 }
+.clear{
+  clear: both;
+}
+#lastest{
+  text-align: center;
+}
+#lastest .item{
+  float: none;
+}
 .item {
   width: 200px;
   float: left;
@@ -26,4 +35,8 @@ a {
 }
 .item img{
   width: 100%;
+}
+.item:first-child{
+  background: red;
+  width: 500px;
 }

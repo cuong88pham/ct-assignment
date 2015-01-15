@@ -3,7 +3,7 @@ extends layout
 block content
   h1.title= title
   div#lastest
-  hr
+  .clear
   div#list
     each image, i in images
       div(class="item item_#{image.id}")
