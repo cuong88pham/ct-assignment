@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src='/javascripts/masonry.jquery.js')
+    script(src='/socket.io/socket.io.js')
+  body
+    block content
+
+    script.
+      var socket = io.connect('http://localhost:3000/ads');
+      var id = 0;
+      $(function(){
+        var $container = $('#list');
+        $container.imagesLoaded( function(){
+          $container.masonry({
+            itemSelector : '.box'
+          });
+        });
+      });
+      socket.on('get_ads', function(data){
+        id = data.id;
+        if($("#list div").hasClass('item_'+id)){
+          console.log('HasClass');
+        }else{
+          var old_lastest_src = $("#lastest img").attr('src'),
+              old_lastest_id = $("#lastest img").attr('id');
+          $("#list").prepend('<div class="item item_'+old_lastest_id+'"><img src="'+old_lastest_src+'" width=240/></div>').masonry('reload');
+          $("#lastest").html('<div class="item item_'+data.id+'"><img id="'+data.id+'" src="'+data.src+'" width=340/></div>');
+        }
+      });
